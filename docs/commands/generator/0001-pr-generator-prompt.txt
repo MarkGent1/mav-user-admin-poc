@@ -1,0 +1,19 @@
+Generate a professional GitHub PR description based on the following information.
+
+Jira Story:
+[PASTE THE STORY HERE]
+
+Implementation Summary:
+[PASTE WHAT YOU IMPLEMENTED HERE]
+
+Please include:
+- A clear summary of the change
+- A bullet list of what was added/changed
+- Why this change is needed
+- How to test it (step-by-step)
+- Any risks or considerations
+- Future work or follow-up items
+- A clean PR title
+- A recommended commit message
+
+Write it in a concise, engineering-team style suitable for GitHub and Jira.

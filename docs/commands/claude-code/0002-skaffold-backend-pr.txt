@@ -1,0 +1,19 @@
+Generate a professional GitHub PR description based on the following information.
+
+Jira Story:
+Create backend API scaffold for user CRUD
+
+Implementation Summary:
+Created .NET 10 Web API scaffold with User model, DTOs, UsersController, DbContext, placeholder service, and xUnit test project.
+
+Please include:
+- A clear summary of the change
+- A bullet list of what was added/changed
+- Why this change is needed
+- How to test it (step-by-step)
+- Any risks or considerations
+- Future work or follow-up items
+- A clean PR title
+- A recommended commit message
+
+Write it in a concise, engineering-team style suitable for GitHub and Jira.
