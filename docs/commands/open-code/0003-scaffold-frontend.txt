@@ -1,0 +1,26 @@
+Generate the initial frontend scaffold for the "mav-user-admin-poc" monorepo.
+
+Requirements:
+- Create a Next.js 15 project inside /frontend
+- Use the App Router (app/ directory)
+- Include TypeScript and ESLint
+- Include the following routes with placeholder content:
+    /users
+    /users/new
+    /users/[id]/edit
+- Create a simple layout with a navigation header linking to the Users section
+- Create a reusable UI component folder: /frontend/components
+- Add placeholder components:
+    - UserList
+    - UserForm
+- Add a simple API client in /frontend/lib/api.ts that points to the backend:
+      GET /api/users
+      GET /api/users/{id}
+      POST /api/users
+      PUT /api/users/{id}
+      DELETE /api/users/{id}
+  (Use fetch, no logic needed yet)
+- Add a /frontend/tests folder with placeholder test files for each page
+
+Do not implement real logic yet.
+This is only the frontend scaffold.

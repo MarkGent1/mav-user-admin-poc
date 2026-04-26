@@ -203,3 +203,90 @@ This completes the SDLC loop.
 * Azure = runtime
 * GitHub Actions = CI/CD
 * DX scripts = local dev
+
+# Model‑Selection Guide
+
+## Use Sonnet for 80–90% of the SDLC
+
+Sonnet is perfect for:
+
+* PR descriptions
+* Commit messages
+* Technical plans
+* Story expansions
+* Test plans
+* Reviewing diffs
+* Documentation
+* Day‑to‑day coding help
+* Architecture for CRUD‑level features
+* Terraform module outlines
+* CI/CD workflow outlines
+
+**Why:**
+
+```
+It’s fast, cheap, and powerful enough for almost everything you’re doing right now.
+```
+
+## Use Opus only for deep reasoning
+
+Examples where Opus is worth it:
+
+* Designing the entire system architecture
+* Multi‑service or distributed system planning
+* Database partitioning / sharding strategies
+* Terraform module architecture across environments
+* Reviewing very large PRs
+* Refactoring thousands of lines across multiple files
+* Performance tuning analysis
+* Security reviews
+* Complex concurrency or async design
+* Anything involving long chains of reasoning
+
+**Why:**
+
+```
+Opus is the “big brain” model — but it consumes your quota faster.
+```
+
+## Use Haiku for quick, low‑stakes tasks
+
+Examples:
+
+* “Rewrite this sentence”
+* “Summarise this error message”
+* “Explain this log output”
+* “Give me 5 branch name ideas”
+* “What does this exception mean?”
+
+**Why:**
+
+```
+It’s extremely fast and barely uses any quota.
+```
+
+## Model‑Selection Guide: Summary
+
+# SDLC Model Strategy — Claude Model Selection Guide
+
+| SDLC Task                                   | Model |
+|---------------------------------------------|-------------------|
+| PR descriptions                             | **Sonnet**        |
+| Commit messages                             | **Sonnet**        |
+| Technical plans                             | **Sonnet**        |
+| Story expansions                            | **Sonnet**        |
+| Test plans                                  | **Sonnet**        |
+| Reviewing diffs (normal size)               | **Sonnet**        |
+| Documentation                               | **Sonnet**        |
+| CRUD‑level architecture                     | **Sonnet**        |
+| Terraform module outlines                   | **Sonnet**        |
+| CI/CD workflow outlines                     | **Sonnet**        |
+| Deep system architecture                    | **Opus**          |
+| Multi‑file refactors                        | **Opus**          |
+| Large PR reviews                            | **Opus**          |
+| Database design (partitioning/sharding)     | **Opus**          |
+| Performance tuning analysis                 | **Opus**          |
+| Security reviews                             | **Opus**          |
+| Quick rewrites                              | **Haiku**         |
+| Error explanations                           | **Haiku**         |
+| Log/message summarisation                   | **Haiku**         |
