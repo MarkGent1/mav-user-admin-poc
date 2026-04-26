@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Mav.UserMgmt.Api/Mav.UserMgmt.Api.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Mav.UserMgmt.Api.Tests/Mav.UserMgmt.Api.Tests.csproj" />
+  </Folder>
+</Solution>

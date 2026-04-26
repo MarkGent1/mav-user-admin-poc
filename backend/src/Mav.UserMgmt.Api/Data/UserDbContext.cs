@@ -1,0 +1,13 @@
+namespace Mav.UserMgmt.Api.Data;
+
+using Mav.UserMgmt.Api.Models;
+using Microsoft.EntityFrameworkCore;
+
+public class UserDbContext : DbContext
+{
+    public UserDbContext(DbContextOptions<UserDbContext> options) : base(options)
+    {
+    }
+
+    public DbSet<User> Users { get; set; } = null!;
+}

@@ -1,0 +1,26 @@
+Generate the initial .NET backend scaffold for the "mav-user-admin-poc" monorepo.
+
+Requirements:
+- Create a .NET 10 Web API project inside /backend/src
+- Project name: Mav.UserMgmt.Api
+- Include:
+  - Program.cs with minimal API setup
+  - User model (Id, Name, Email, Role)
+  - DTOs for CreateUserRequest and UpdateUserRequest
+  - UsersController with empty CRUD endpoints:
+      GET /api/users
+      GET /api/users/{id}
+      POST /api/users
+      PUT /api/users/{id}
+      DELETE /api/users/{id}
+  - A placeholder UserService class (no logic yet)
+  - A DbContext called UserDbContext with a Users DbSet
+  - appsettings.Development.json with a placeholder connection string
+  - Add EF Core packages but do NOT generate migrations yet
+
+Also create:
+- A tests project in /backend/tests using xUnit
+- A placeholder UsersControllerTests file
+
+Do not implement business logic yet. 
+This is only the backend scaffold.
