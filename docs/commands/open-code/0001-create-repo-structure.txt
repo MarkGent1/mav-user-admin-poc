@@ -1,0 +1,33 @@
+Create the initial folder structure for a new monorepo called within the existing "mav-user-admin-poc" folder. 
+Do not generate any application code yet — only folders and placeholder files.
+
+The structure should be:
+
+/mav-user-admin-poc
+  /backend
+    /src
+    /tests
+  /frontend
+    /app
+    /components
+    /tests
+  /infra
+    /terraform
+      /modules
+        /app_service
+        /sql
+        /resource_group
+      /envs
+        /dev
+  /.github
+    /workflows
+  /docs
+  /scripts
+
+For each folder, create minimal placeholder files so the structure is committed cleanly:
+- README.md in each major folder
+- .gitkeep in empty folders
+- A root-level README.md describing the project already exists
+
+Do NOT generate any .NET, Next.js, or Terraform code yet. 
+This step is only about scaffolding the repo structure.
