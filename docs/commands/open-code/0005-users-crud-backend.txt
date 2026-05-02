@@ -1,0 +1,89 @@
+Implement the remaining CRUD feature for the Mav.UserMgmt.Api project in the mav-user-admin-poc monorepo.
+
+Features:
+
+1. Create User
+
+Acceptance Criteria:
+ - Given I provide valid user details
+ - When I call POST /api/users
+ - Then a new user is created
+ - And I receive a 201 Created response
+Details:
+ - Implement POST /api/users in UsersController
+ - Request DTO: CreateUserRequest { name, email, role }
+ - Validation: all fields required (use fluent validation)
+ - Add a method in UserService: Task<User> CreateUserAsync(CreateUserRequest request)
+ - Use EF Core to add the user and save changes
+ - Return 201 Created with the created user DTO
+
+2. Update User
+
+Acceptance Criteria:
+ - Given a user exists
+ - When I call PUT /api/users/{id} with updated fields
+ - Then the user is updated
+ - And I receive a 200 OK response
+
+Details:
+ - Implement PUT /api/users/{id} in UsersController
+ - Request DTO: UpdateUserRequest { name, email, role }
+ - Validation: all fields required (use fluent validation)
+ - Add a method in UserService: Task<User> UpdateUserAsync(int id, UpdateUserRequest request)
+ - If user not found → return 404
+ - Save changes and return updated user DTO
+
+3. Delete User
+
+Acceptance Criteria:
+ - Given a user exists
+ - When I call DELETE /api/users/{id}
+ - Then the user is removed
+ - And I receive a 204 No Content response
+
+Details:
+ - Implement DELETE /api/users/{id} in UsersController
+ - Add a method in UserService: Task<bool> DeleteUserAsync(int id)
+ - If user not found → return 404
+ - If deleted → return 204 No Content
+ - Update User model to include a Deleted bool property for soft deleted
+ - Create new EF Core migration for new fields
+ - Ensure the Create method defaults this to false
+
+4. Get User
+
+Acceptance Criteria:
+ - Given a user exists
+ - When I call GET /api/users/{id}
+ - Then the user details are returned
+ - And I receive a 200 response
+
+Details:
+ - Implement GET /api/users/{id} in UsersController
+ - Add a method in UserService: Task<User> GetUserAsync(int id)
+ - Ensure Linq query checked for Deleted != true
+ - If user not found → return 404
+ - The Controller should return the UserResponse model and a 200
+
+General Requirements:
+- Update UsersController to include all endpoints
+- Add DTOs for CreateUserRequest and UpdateUserRequest
+- Add mapping to return:
+    {
+      id: number,
+      name: string,
+      email: string,
+      role: string
+    }
+- Add basic error handling (500 on unexpected errors)
+- Add unit tests in /backend/tests for:
+    - CreateUser: returns 201 and persists user
+    - UpdateUser: returns 200 and updates user
+    - UpdateUser: returns 404 when user not found
+    - DeleteUser: returns 204 when deleted
+    - DeleteUser: returns 404 when user not found
+    - GetUser: returns 200 when found
+    - GetUser: returns 404 when user not found
+
+Do NOT add pagination or filtering.
+Keep logic simple, clean, and consistent with the existing List Users implementation.

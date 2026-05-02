@@ -38,26 +38,97 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public IActionResult GetUser(int id)
+    public async Task<IActionResult> GetUser(int id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var user = await _userService.GetUserAsync(id);
+            if (user == null)
+            {
+                return NotFound($"User with ID {id} not found.");
+            }
+
+            var response = new UserResponse
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                Role = user.Role
+            };
+
+            return Ok(response);
+        }
+        catch
+        {
+            return StatusCode(500, "An unexpected error occurred while retrieving the user.");
+        }
     }
 
     [HttpPost]
-    public IActionResult CreateUser([FromBody] CreateUserRequest request)
+    public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest request)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var user = await _userService.CreateUserAsync(request);
+            var response = new UserResponse
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                Role = user.Role
+            };
+
+            return CreatedAtAction(nameof(GetUsers), new { id = user.Id }, response);
+        }
+        catch
+        {
+            return StatusCode(500, "An unexpected error occurred while creating the user.");
+        }
     }
 
     [HttpPut("{id}")]
-    public IActionResult UpdateUser(int id, [FromBody] UpdateUserRequest request)
+    public async Task<IActionResult> UpdateUser(int id, [FromBody] UpdateUserRequest request)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var user = await _userService.UpdateUserAsync(id, request);
+            if (user == null)
+            {
+                return NotFound($"User with ID {id} not found.");
+            }
+
+            var response = new UserResponse
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                Role = user.Role
+            };
+
+            return Ok(response);
+        }
+        catch
+        {
+            return StatusCode(500, "An unexpected error occurred while updating the user.");
+        }
     }
 
     [HttpDelete("{id}")]
-    public IActionResult DeleteUser(int id)
+    public async Task<IActionResult> DeleteUser(int id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var deleted = await _userService.DeleteUserAsync(id);
+            if (!deleted)
+            {
+                return NotFound($"User with ID {id} not found.");
+            }
+
+            return NoContent();
+        }
+        catch
+        {
+            return StatusCode(500, "An unexpected error occurred while deleting the user.");
+        }
     }
 }

@@ -1,0 +1,79 @@
+Generate a professional GitHub PR description for adding EF Core migrations to the backend.
+
+Jira Story:
+Create, Update, Delete Users
+
+Implementation Summary:
+
+Features:
+
+1. Create User
+
+Acceptance Criteria:
+ - Given I provide valid user details
+ - When I call POST /api/users
+ - Then a new user is created
+ - And I receive a 201 Created response
+Details:
+ - Implement POST /api/users in UsersController
+ - Request DTO: CreateUserRequest { name, email, role }
+ - Validation: all fields required (use fluent validation)
+ - Add a method in UserService: Task<User> CreateUserAsync(CreateUserRequest request)
+ - Use EF Core to add the user and save changes
+ - Return 201 Created with the created user DTO
+
+2. Update User
+
+Acceptance Criteria:
+ - Given a user exists
+ - When I call PUT /api/users/{id} with updated fields
+ - Then the user is updated
+ - And I receive a 200 OK response
+
+Details:
+ - Implement PUT /api/users/{id} in UsersController
+ - Request DTO: UpdateUserRequest { name, email, role }
+ - Validation: all fields required (use fluent validation)
+ - Add a method in UserService: Task<User> UpdateUserAsync(int id, UpdateUserRequest request)
+ - If user not found → return 404
+ - Save changes and return updated user DTO
+
+3. Delete User
+
+Acceptance Criteria:
+ - Given a user exists
+ - When I call DELETE /api/users/{id}
+ - Then the user is removed
+ - And I receive a 204 No Content response
+
+Details:
+ - Implement DELETE /api/users/{id} in UsersController
+ - Add a method in UserService: Task<bool> DeleteUserAsync(int id)
+ - If user not found → return 404
+ - If deleted → return 204 No Content
+ - Update User model to include a Deleted bool property for soft deleted
+ - Create new EF Core migration for new fields
+ - Ensure the Create method defaults this to false
+
+4. Get User
+
+Acceptance Criteria:
+ - Given a user exists
+ - When I call GET /api/users/{id}
+ - Then the user details are returned
+ - And I receive a 200 response
+
+Details:
+ - Implement GET /api/users/{id} in UsersController
+ - Add a method in UserService: Task<User> GetUserAsync(int id)
+ - Ensure Linq query checked for Deleted != true
+ - If user not found → return 404
+ - The Controller should return the UserResponse model and a 200
+
+Please include:
+- Summary of the change
+- What was added/changed
+- Why this change is needed
+- How to test it
+- Any risks or considerations
+- A clean PR title
