@@ -1,0 +1,97 @@
+Implement the “List Users” backend feature for the Mav.UserMgmt.Api project.
+
+Requirements:
+- Implement GET /api/users in UsersController
+- Add a method in UserService: Task<List<User>> GetAllUsersAsync()
+- Implement the method using UserDbContext.Users.ToListAsync()
+- Add DTO mapping so the API returns a list of:
+    {
+      id: number,
+      name: string,
+      email: string,
+      role: string
+    }
+- Add a UsersResponse DTO if needed
+- Wire the controller to call UserService
+- Add basic error handling (500 on unexpected errors)
+- Add unit tests in /backend/tests for:
+    - UsersController GET /api/users returns 200
+    - Returns empty list when no users exist
+    - Returns list of users when present
+- Do not implement pagination yet
+- Do not implement filtering yet
+- Keep logic simple and readable
+
+###
+
+Add Docker Compose support for the backend of the "mav-user-admin-poc" monorepo.
+
+Requirements:
+
+1. Create /backend/docker-compose.yml with:
+   - A Postgres 16 container
+   - Database name: mav_users
+   - Username: mav
+   - Password: mav
+   - Port mapping: 5432:5432
+   - A named volume for persistence
+   - A healthcheck using pg_isready
+   - An API service that depends on Postgres being healthy
+   - API should run on port 5000 externally and 8080 internally
+
+2. Create /backend/.env containing:
+   POSTGRES_USER=mav
+   POSTGRES_PASSWORD=mav
+   POSTGRES_DB=mav_users
+
+3. Update Mav.UserMgmt.Api appsettings.Development.json to use:
+   "Host=localhost;Port=5432;Database=mav_users;Username=mav;Password=mav"
+
+4. Update Program.cs to ensure EF Core uses the DefaultConnection string.
+
+5. Ensure the API container uses:
+   ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=mav_users;Username=mav;Password=mav
+
+6. Do NOT generate migrations yet.
+   Do NOT implement business logic.
+   Only add infrastructure and configuration.
+
+7. Ensure all paths match the existing monorepo structure:
+   /backend/src/Mav.UserMgmt.Api
+   /backend/tests
+
+###
+
+Add EF Core migrations support to the backend of the mav-user-admin-poc monorepo.
+
+Requirements:
+
+1. Create an InitialCreate migration for the User entity in:
+   /backend/src/Mav.UserMgmt.Api/Migrations
+
+2. Ensure the migration includes:
+   - Users table
+   - Id (int, PK)
+   - Name (string)
+   - Email (string)
+   - Role (string)
+
+3. Update Program.cs to automatically apply migrations on startup:
+      using (var scope = app.Services.CreateScope())
+      {
+          var db = scope.ServiceProvider.GetRequiredService<UserDbContext>();
+          db.Database.Migrate();
+      }
+
+4. Ensure the API works in BOTH environments:
+   - Local development (appsettings.Development.json)
+   - Docker Compose (ConnectionStrings__DefaultConnection)
+
+5. Ensure the Dockerfile includes migrations in the published output.
+
+6. Do NOT modify the domain model.
+7. Do NOT add business logic.
+8. Only add:
+   - Migrations
+   - Automatic migration execution
+   - Any required config updates

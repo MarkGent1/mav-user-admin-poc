@@ -1,0 +1,17 @@
+Generate a professional GitHub PR description for adding EF Core migrations to the backend.
+
+Jira Story:
+List Users
+
+Implementation Summary:
+Added EF Core InitialCreate migration and automatic migration execution on startup. Updated Program.cs to apply migrations, added Migrations folder, ensured Docker Compose and local development both use the correct connection strings, and verified schema creation for the Users table.
+
+Please include:
+- Summary of the change
+- What was added/changed
+- Why this change is needed
+- How to test it
+- Any risks or considerations
+- Future work
+- A clean PR title
+- A recommended commit message

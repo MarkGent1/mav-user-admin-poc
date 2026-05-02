@@ -1,0 +1,23 @@
+Generate a professional GitHub PR description based on the following information.
+
+Jira Story:
+Create frontend scaffold with Next.js app router
+
+Implementation Summary:
+Created the initial Next.js 15 frontend scaffold for the mav-user-admin-poc monorepo, including:
+- App Router structure
+- /users, /users/new, /users/[id]/edit routes
+- Layout with navigation
+- Placeholder UserList and UserForm components
+- API client pointing to backend
+- Tests folder with placeholder test files
+
+Please include:
+- A clear summary of the change
+- A bullet list of what was added/changed
+- Why this change is needed
+- How to test it
+- Any risks or considerations
+- Future work
+- A clean PR title
+- A recommended commit message
