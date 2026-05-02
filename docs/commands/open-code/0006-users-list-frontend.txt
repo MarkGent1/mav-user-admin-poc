@@ -1,0 +1,45 @@
+Implement the “List Users” frontend feature for the mav-user-admin-poc monorepo.
+
+This should mirror the backend List Users story and include ONLY read-only functionality.
+
+Requirements:
+
+1. USERS LIST PAGE
+   - Implement /users/page.tsx
+   - Fetch users from the backend using the existing API client
+   - Display a table or list with: Name, Email, Role, Actions
+   - Actions column should include:
+       - Edit (links to /users/[id]/edit)
+       - Delete (button, but NOT functional yet)
+   - Add a “Create User” button linking to /users/new
+
+2. STATES
+   - Loading state
+   - Error state
+   - Empty state (“No users found”)
+
+3. COMPONENTS
+   - Create /frontend/components/UserList.tsx
+   - Create /frontend/components/LoadingIndicator.tsx
+   - Create /frontend/components/ErrorMessage.tsx
+   - Create /frontend/components/EmptyState.tsx
+
+4. API CLIENT
+   - Ensure getUsers() exists in /frontend/lib/api.ts
+   - Do NOT implement create/update/delete yet
+
+5. TESTS
+   - Add tests in /frontend/tests:
+       - Renders list of users
+       - Shows empty state
+       - Shows loading state
+       - Shows error state
+
+6. DO NOT:
+   - Implement create user form
+   - Implement edit user form
+   - Implement delete functionality
+   - Add advanced styling
+   - Add global state management
+
+This story should result in a fully functional read-only Users List page.
