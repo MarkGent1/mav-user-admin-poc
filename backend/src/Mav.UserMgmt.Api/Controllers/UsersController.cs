@@ -1,16 +1,40 @@
 namespace Mav.UserMgmt.Api.Controllers;
 
 using Mav.UserMgmt.Api.DTOs;
+using Mav.UserMgmt.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("api/[controller]")]
 public class UsersController : ControllerBase
 {
-    [HttpGet]
-    public IActionResult GetUsers()
+    private readonly IUserService _userService;
+
+    public UsersController(IUserService userService)
     {
-        throw new NotImplementedException();
+        _userService = userService;
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetUsers()
+    {
+        try
+        {
+            var users = await _userService.GetAllUsersAsync();
+            var response = users.Select(u => new UserResponse
+            {
+                Id = u.Id,
+                Name = u.Name,
+                Email = u.Email,
+                Role = u.Role
+            }).ToList();
+
+            return Ok(response);
+        }
+        catch
+        {
+            return StatusCode(500, "An unexpected error occurred while retrieving users.");
+        }
     }
 
     [HttpGet("{id}")]
