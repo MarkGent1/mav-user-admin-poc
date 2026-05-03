@@ -1,0 +1,30 @@
+Generate a professional GitHub PR description for the “users-list-frontend” story in the mav-user-admin-poc monorepo.
+
+Jira Story:
+Implement the read-only Users List page in the frontend, mirroring the backend List Users feature.
+
+Context:
+The backend already exposes GET /api/users and supports CORS. This PR adds the read-only UI for listing users, including loading, error, and empty states, but does NOT include create, update, or delete functionality. Those will be implemented in a separate story.
+
+Implementation Summary:
+- Added /users/page.tsx to fetch and display the list of users.
+- Implemented UserList component to render Name, Email, Role, and placeholder Actions.
+- Added LoadingIndicator, ErrorMessage, and EmptyState components.
+- Updated API client with getUsers() method.
+- Added navigation links to Create User and Edit User pages (non-functional for now).
+- Added tests for:
+    - Rendering list of users
+    - Empty state
+    - Loading state
+    - Error state
+- Ensured CORS is enabled on backend so frontend can fetch data.
+
+Please generate a PR description that includes:
+- A clear, concise summary of the change
+- What was added/changed
+- Why this change is needed
+- How to test the feature manually
+- Any risks or considerations
+- Future work (Create, Edit, Delete)
+- A clean PR title
+- A recommended commit message

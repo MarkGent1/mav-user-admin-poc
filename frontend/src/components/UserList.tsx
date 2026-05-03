@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { getUsers, User } from "../lib/api";
+import { getUsers, deleteUser, User } from "../lib/api";
 import { LoadingIndicator } from "./LoadingIndicator";
 import { ErrorMessage } from "./ErrorMessage";
 import { EmptyState } from "./EmptyState";
@@ -10,22 +10,40 @@ export function UserList() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [deleteLoading, setDeleteLoading] = useState<number | null>(null);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetchUsers() {
-      try {
-        setLoading(true);
-        setError(null);
-        const data = await getUsers();
-        setUsers(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to fetch users");
-      } finally {
-        setLoading(false);
-      }
-    }
     fetchUsers();
   }, []);
+
+  async function fetchUsers() {
+    try {
+      setLoading(true);
+      setError(null);
+      const data = await getUsers();
+      setUsers(data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to fetch users");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleDelete(id: number) {
+    if (!confirm("Are you sure you want to delete this user?")) return;
+
+    try {
+      setDeleteLoading(id);
+      setDeleteError(null);
+      await deleteUser(id);
+      setUsers(users.filter((u) => u.id !== id));
+    } catch (err) {
+      setDeleteError(err instanceof Error ? err.message : "Failed to delete user");
+    } finally {
+      setDeleteLoading(null);
+    }
+  }
 
   if (loading) return <LoadingIndicator />;
   if (error) return <ErrorMessage message={error} />;
@@ -33,6 +51,11 @@ export function UserList() {
 
   return (
     <div>
+      {deleteError && (
+        <div style={{ padding: "1rem", marginBottom: "1rem", backgroundColor: "#fee", color: "red" }}>
+          {deleteError}
+        </div>
+      )}
       <div style={{ marginBottom: "1rem" }}>
         <a
           href="/users/new"
@@ -68,7 +91,7 @@ export function UserList() {
           {users.map((user) => (
             <tr key={user.id}>
               <td style={{ borderBottom: "1px solid #eee", padding: "0.5rem" }}>
-                {user.firstName} {user.lastName}
+                {user.name}
               </td>
               <td style={{ borderBottom: "1px solid #eee", padding: "0.5rem" }}>
                 {user.email}
@@ -84,10 +107,11 @@ export function UserList() {
                   Edit
                 </a>
                 <button
-                  onClick={() => alert("Delete functionality not implemented yet")}
+                  onClick={() => handleDelete(user.id)}
+                  disabled={deleteLoading === user.id}
                   style={{ color: "red", background: "none", border: "none", cursor: "pointer" }}
                 >
-                  Delete
+                  {deleteLoading === user.id ? "Deleting..." : "Delete"}
                 </button>
               </td>
             </tr>

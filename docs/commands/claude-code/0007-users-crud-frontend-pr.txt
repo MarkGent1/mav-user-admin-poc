@@ -1,0 +1,26 @@
+Generate a professional GitHub PR description for the “users-crud-frontend” feature in the mav-user-admin-poc monorepo.
+
+Jira Story:
+Implement Create, Edit, and Delete functionality for Users in the frontend, mirroring the backend CRUD API.
+
+Context:
+The read-only Users List page already exists. This PR adds the full CRUD experience including forms, validation, API integration, and error handling.
+
+Implementation Summary:
+- Added /users/new page with a Create User form.
+- Added /users/[id]/edit page with an Edit User form.
+- Added UserForm component used by both pages.
+- Added createUser(), updateUser(), deleteUser() to the API client.
+- Wired Delete action into the Users List page with confirmation.
+- Added loading and error states for all mutations.
+- Added tests for create, edit, delete, and error handling.
+
+Please include in the PR description:
+- A clear summary of the change
+- What was added or modified
+- Why this change is needed
+- How to test manually
+- Risks or considerations
+- Future work (validation improvements, UX polish)
+- A clean PR title
+- A recommended commit message
