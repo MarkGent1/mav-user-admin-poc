@@ -1,24 +1,23 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { UserList } from "../src/components/UserList";
-import { getUsers } from "../src/lib/api";
+import { getUsers, deleteUser } from "../src/lib/api";
 
 vi.mock("../src/lib/api");
 
 const mockGetUsers = vi.mocked(getUsers);
+const mockDeleteUser = vi.mocked(deleteUser);
 
 const mockUsers = [
   {
-    id: "1",
-    firstName: "John",
-    lastName: "Doe",
+    id: 1,
+    name: "John Doe",
     email: "john@example.com",
     role: "Admin",
   },
   {
-    id: "2",
-    firstName: "Jane",
-    lastName: "Smith",
+    id: 2,
+    name: "Jane Smith",
     email: "jane@example.com",
     role: "User",
   },
@@ -75,5 +74,64 @@ describe("UserList", () => {
     render(<UserList />);
     const deleteButtons = await screen.findAllByText("Delete");
     expect(deleteButtons.length).toBe(2);
+  });
+
+  it("calls deleteUser when delete button is clicked and confirmed", async () => {
+    mockGetUsers.mockResolvedValueOnce(mockUsers);
+    mockDeleteUser.mockResolvedValueOnce(undefined);
+    const confirmSpy = vi.spyOn(window, "confirm").mockReturnValue(true);
+
+    render(<UserList />);
+    const deleteButtons = await screen.findAllByText("Delete");
+    deleteButtons[0].click();
+
+    expect(confirmSpy).toHaveBeenCalledOnce();
+    expect(mockDeleteUser).toHaveBeenCalledWith(1);
+
+    confirmSpy.mockRestore();
+  });
+
+  it("does not call deleteUser when delete is cancelled", async () => {
+    mockGetUsers.mockResolvedValueOnce(mockUsers);
+    const confirmSpy = vi.spyOn(window, "confirm").mockReturnValue(false);
+
+    render(<UserList />);
+    const deleteButtons = await screen.findAllByText("Delete");
+    deleteButtons[0].click();
+
+    expect(confirmSpy).toHaveBeenCalledOnce();
+    expect(mockDeleteUser).not.toHaveBeenCalled();
+
+    confirmSpy.mockRestore();
+  });
+
+  it("shows delete error when delete fails", async () => {
+    mockGetUsers.mockResolvedValueOnce(mockUsers);
+    mockDeleteUser.mockRejectedValueOnce(new Error("Delete failed"));
+    const confirmSpy = vi.spyOn(window, "confirm").mockReturnValue(true);
+
+    render(<UserList />);
+    const deleteButtons = await screen.findAllByText("Delete");
+    deleteButtons[0].click();
+
+    expect(await screen.findByText("Delete failed")).toBeTruthy();
+
+    confirmSpy.mockRestore();
+  });
+
+  it("shows deleting state while deleting", async () => {
+    mockGetUsers.mockResolvedValueOnce(mockUsers);
+    mockDeleteUser.mockImplementationOnce(
+      () => new Promise((resolve) => setTimeout(resolve, 100))
+    );
+    const confirmSpy = vi.spyOn(window, "confirm").mockReturnValue(true);
+
+    render(<UserList />);
+    const deleteButtons = await screen.findAllByText("Delete");
+    deleteButtons[0].click();
+
+    expect(await screen.findByText("Deleting...")).toBeTruthy();
+
+    confirmSpy.mockRestore();
   });
 });

@@ -1,0 +1,48 @@
+Implement the full CRUD functionality for the Users frontend in the mav-user-admin-poc monorepo.
+
+This should mirror the backend CRUD story.
+
+Requirements:
+
+1. CREATE USER
+   - Implement /users/new/page.tsx
+   - Use a reusable UserForm component
+   - Fields: name, email, role
+   - Client-side validation
+   - On submit → POST to backend
+   - On success → redirect to /users
+   - Show loading + error states
+
+2. EDIT USER
+   - Implement /users/[id]/edit/page.tsx
+   - Fetch existing user data
+   - Pre-fill UserForm
+   - On submit → PUT to backend
+   - On success → redirect to /users
+   - Show loading + error states
+   - Show “User not found” if backend returns 404
+
+3. DELETE USER
+   - Make the Delete button functional on the /users list page
+   - Confirm before deleting
+   - On confirm → DELETE to backend
+   - Refresh the list after deletion
+   - Show loading + error states
+
+4. COMPONENTS
+   - Create /frontend/components/UserForm.tsx
+   - Reuse LoadingIndicator, ErrorMessage
+
+5. API CLIENT
+   - Add createUser(), updateUser(), deleteUser() to /frontend/lib/api.ts
+
+6. TESTS
+   - Create user form submits correctly
+   - Edit user form loads + submits correctly
+   - Delete user triggers API call
+   - Error states render correctly
+
+7. DO NOT:
+   - Modify the list page beyond wiring delete
+   - Add pagination or filtering
+   - Add advanced styling
