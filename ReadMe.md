@@ -290,3 +290,14 @@ It’s extremely fast and barely uses any quota.
 | Quick rewrites                              | **Haiku**         |
 | Error explanations                           | **Haiku**         |
 | Log/message summarisation                   | **Haiku**         |
+
+# Advancing the SDLC using ADO Automations
+
+Moving onto my IaC, the loops were updated to include a more "AI‑augmented SDLC".
+
+## Updated SDLC Loop to run in ADO
+
+✔ Branch → Work Item linking
+✔ Commit → Work Item linking
+✔ PR → Work Item linking
+✔ PR merge → Work Item Closed (if you use "Fixes #150")
