@@ -5,14 +5,9 @@ using Mav.UserMgmt.Api.DTOs;
 using Mav.UserMgmt.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
-public class UserService : IUserService
+public class UserService(UserDbContext context) : IUserService
 {
-    private readonly UserDbContext _context;
-
-    public UserService(UserDbContext context)
-    {
-        _context = context;
-    }
+    private readonly UserDbContext _context = context;
 
     public async Task<List<User>> GetAllUsersAsync()
     {
