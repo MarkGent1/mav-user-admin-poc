@@ -301,3 +301,7 @@ Moving onto my IaC, the loops were updated to include a more "AI‑augmented SDL
 ✔ Commit → Work Item linking
 ✔ PR → Work Item linking
 ✔ PR merge → Work Item Closed (if you use "Fixes #150")
+
+## MCP server set up
+
+TODO.
